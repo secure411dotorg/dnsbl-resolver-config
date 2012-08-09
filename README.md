@@ -44,8 +44,6 @@ I've needed to do this in two typical situations.
 
 1. I'm rsyncing a copy of a DNSBL zone, which I want to run under rbldnsd for reasons of speed and convenience.
 
-OR
-
 2. I've been assigned a special host to query a DNSBL at, and that DNSBL is firewalled off from all the public 
 recursive servers.
 
