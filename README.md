@@ -11,6 +11,17 @@ For those who need to directly query local or remote specialized DNSBL services,
 BIND
 ---
 
+My three suggested steps for BIND are:
+
+1. Put your new forwarder definition in a completely separate file and just "include" it optionally into
+the named.conf.local file
+
+2. Have a kill switch for the DNSBL. If you follow 1. above, it is as easy as commenting out the line that
+includes the named.conf.dnsblname file in named.conf.local. Restart BIND for the change to take effect.
+
+3. A helper script to find the current IP of a host you may have been assigned to query. (This is not 
+suitable for all DNSBLs as some are using round robin and other load balancing techniques. Follow the 
+instructions given to you by the DNSBL you subscribed to, if different.)
 
 
 
@@ -54,4 +65,3 @@ or someone else's remote DNSBL query service.
 1. and 2. are the situations this repo is intended to address. Hopefully more contributors will come along with 
 configs and code snippets for other flavors of resolvers or improve on what I have done as a start.
 
-as my own local copy. 
