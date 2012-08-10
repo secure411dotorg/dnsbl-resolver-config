@@ -93,7 +93,11 @@ at the start of the line, like this:
 // include " some bad syntax or something causing bind to fail "
 ```
 
-Then issue the bind start command again.
+Then issue the bind start command again, such as:
+
+```
+sudo /etc/bind start
+```
 
 bind is very particular about syntax in config files and will not start 
 if you have one character wrong or out of place. Carefully examine your
@@ -104,7 +108,54 @@ named.conf.local include line for possible syntax erros.
 QUERIES ARE BEING REFUSED OR TIMING OUT
 ***
 
+Nothing you change on your bind server could possibly help if you cannot 
+first prove that from your bind server you can connect to your assigned
+query service host and receive a correct answer.
 
+The first test shown and run by the helper script gives you the syntax 
+for this test.
+
+If you are at the command line of your bind server and cannot get a correct 
+answer from your assigned query service host, go to https://service.dissectcyber.com 
+and add your bind server IP to your query client IPs for IsNu.us.
+
+If it is already there, check that the color is green indicating that your 
+service is turned on. Look at the example queries on the page to verify that
+the service in general is currently working.
+
+Verify that you have put the correct assigned query host name into the helper script.
+
+***
+
+If you dig @localhost but localhost isn't in bind "allow-recursion" list, 
+you will get REFUSED as the status in a long form dig response when testing.
+
+```
+;; ->>HEADER<<- opcode: QUERY, status: REFUSED,
+```
+
+Assuming you are not running an open recursive resolver, each server that uses
+your bind server as a recursive resolver must be listed explicitly in 
+
+```
+allow-recursion { 1.2.3.4; 127.0.0.1; };
+```
+
+or in an included file containing network acl groupings that are in turn listed 
+in the 
+
+```
+allow-recursion { my_networks; };
+```
+
+This will show you what file your allow-recursion statment is in if issued in the /etc/bind dir:
+
+```
+grep recursion named* 
+```
+
+Remember that a restart of bind or rndc reload will be necessary for bind to re-read 
+some configuration file changes.
 
 ***
 CACHING NIGHTMARES
