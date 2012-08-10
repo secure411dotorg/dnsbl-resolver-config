@@ -23,7 +23,7 @@ includes the named.conf.dnsblname file in named.conf.local. Restart BIND for the
 suitable for all DNSBLs as some are using round robin and other load balancing techniques. Follow the 
 instructions given to you by the DNSBL you subscribed to, if different.)
 
-
+Have a look at the code snippets for examples.
 
 ***
 FIXME add other resolver flavors here
