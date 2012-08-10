@@ -82,4 +82,10 @@ echo ""
 echo "Additional configuration is needed the first time you create"
 echo "a forwarding zone. See instructions and troubleshooting tips at"
 echo "https://github.com/secure411dotorg/dnsbl-resolver-config"
+echo ""
+echo "The line you should have in named.conf.local to enable this zone:"
+echo "include \"/etc/bind/named.conf.${MYFQDN}\";"
+echo ""
+echo "The include lines you actually have in named.conf.local:"
+grep include named.conf.local
 
