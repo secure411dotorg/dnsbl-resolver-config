@@ -23,7 +23,14 @@ includes the named.conf.dnsblname file in named.conf.local. Restart BIND for the
 suitable for all DNSBLs as some are using round robin and other load balancing techniques. Follow the 
 instructions given to you by the DNSBL you subscribed to, if different.)
 
-Have a look at the code snippets for examples.
+The diagram included in the bind dir here:
+
+https://raw.github.com/secure411dotorg/dnsbl-resolver-config/master/bind/dnsbl-forward-only-zone.png
+
+outlines what is going on between a typical spam filter (in your mail server for example) and the DNSBL
+service or your local copy of the DNSBL zone.
+
+Have a look at the code snippets for examples of setting up the forward-only zone.
 
 ***
 FIXME add other resolver flavors here
