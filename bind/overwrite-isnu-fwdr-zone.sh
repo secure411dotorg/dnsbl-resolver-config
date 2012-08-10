@@ -10,18 +10,20 @@
 cd /etc/bind
 #
 # CHANGE NEXT LINE to path/executable for your md5 program
-# On most systems you can find the path by typing:
-# which md5 or which md5sum
 MD5PATH="md5sum" # works on most Linux
 #MD5PATH=/sbin/md5 # works on most Mac
+# On most systems you can find the path by typing:
+# which md5 or which md5sum
 #
 # CHANGE THE NEXT LINE to match your assigned query host
-# EXAMPLE: MYFQDN="abc123.isnu.us"
 MYFQDN="abc123.isnu.us"
+# EXAMPLE: MYFQDN="abc123.isnu.us"
+#
 # CHANGE THE NEXT LINE TO whatever you want as a zone name
 MYZONENAME="isnu.us"
 #
 # NOTHING TO CONFIGURE BELOW HERE
+# Do our part to prevent overwriting of common bind configuration files
 if [ -z "${MYFQDN}" ];then
 	echo "MYFQDN cannot be blank"
 	echo "Edit this script to set MYFQDN=your-assigned-host.isnu.us"
@@ -38,6 +40,7 @@ if [ "${MYFQDN}" = "local" ];then
         exit 1
 fi
 #
+# Get the current IP address for your assigned query host
 ARECORD=`dig +short ${MYFQDN} A|head -n1`
 #
 # DELETE ANY PREVIOUS TEMP FILE NAMED THE SAME
@@ -65,21 +68,9 @@ echo "Should return 127.0.0.2 if you can reach the query server"
 # Run the test query
 dig @${MYFQDN} ${MYTESTPOINT} +short A
 #
-echo "To test the forwarding zone you just created:"
+echo "To test your forwarding zone:"
 echo ""
-echo "Make sure named.conf.local contains the following line, uncommented:"
-echo ""
-echo "include \"/etc/bind/named.conf.${MYFQDN}\";"
-echo ""
-echo "Restart bind, such as sudo /etc/init.d/bind9 restart on Ubuntu"
-echo ""
-echo "If bind fails to start, edit named.conf.local" 
-echo "to comment out the include line you just added." 
-echo "Then issue the bind start command again"
-echo ""
-echo "If bind started OK with the include, test the forwarding zone:"
-echo ""
-echo "To make the new configuration active, issue an"
+echo "Make the new configuration active, by issuing an"
 echo "rndc reload"
 echo ""
 echo "After that if you see: server reload successful"
@@ -88,6 +79,7 @@ echo "dig @localhost ${MYTESTPOINT}.${MYZONENAME} A"
 echo "Should return 127.0.0.2 if your forwarding zone is working"
 dig @localhost ${MYTESTPOINT}.${MYZONENAME} +short A
 echo ""
-echo "Remove or add a few characters from your test point domain to avoid caching"
-echo "if you are doing multiple tests after making changes"
-echo ""
+echo "Additional configuration is needed the first time you create"
+echo "a forwarding zone. See instructions and troubleshooting tips at"
+echo "https://github.com/secure411dotorg/dnsbl-resolver-config"
+
