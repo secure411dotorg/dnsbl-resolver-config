@@ -102,7 +102,7 @@ sudo /etc/bind start
 bind is very particular about syntax in config files and will not start 
 if you have one character wrong or out of place. Carefully examine your
 new forward-only zone file that was created by the helper script and your 
-named.conf.local include line for possible syntax erros.
+named.conf.local include line for possible syntax errors.
 
 ***
 QUERIES ARE BEING REFUSED OR TIMING OUT
